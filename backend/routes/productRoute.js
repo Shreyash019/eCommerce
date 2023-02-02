@@ -1,12 +1,13 @@
 const express = require('express');
 const router = express.Router();
 const productController = require('../controllers/productController');
+const authenToken  = require('../utils/authToken')
 
-router.route('/').get(productController.getAllProducts)
-router.route('/newproduct').post(productController.createProduct).get(productController.getSinlgeProduct)
+router.route('/product').get(productController.getAllProducts)
+router.route('/newproduct').post(authenToken.isAuthenticateUser, authenToken.isUserAdmin("admin"), productController.createProduct)
 router.route('/product/:id')
     .get(productController.getSinlgeProduct)
-    .put(productController.updateAProducts)
-    .delete(productController.deleteSingleProduct)
+    .put(authenToken.isAuthenticateUser, authenToken.isUserAdmin("admin"), productController.updateAProducts)
+    .delete(authenToken.isAuthenticateUser, authenToken.isUserAdmin("admin"),productController.deleteSingleProduct)
 
 module.exports = router;
