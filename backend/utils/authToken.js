@@ -3,6 +3,7 @@ const catchAsync = require('../middleware/catchAsync');
 const UserModel = require('../model/userSchema');
 const ErrorHandler = require('./errorHandler');
 
+
 exports.authSignToken = (id) =>{
     return jwt.sign({id}, process.env.JWT_SECRET, {
         expiresIn: process.env.JWT_EXPIRES_IN
