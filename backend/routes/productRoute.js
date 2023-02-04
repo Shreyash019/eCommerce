@@ -8,7 +8,7 @@ router.route('/newproduct').post(authenToken.isAuthenticateUser, authenToken.isU
 router.route('/product/:id')
     .get(productController.getSinlgeProduct)
     .put(authenToken.isAuthenticateUser, authenToken.isUserAdmin("admin"), productController.updateAProducts)
-    .delete(authenToken.isAuthenticateUser, authenToken.isUserAdmin("admin"),productController.deleteSingleProduct)
+    .delete(authenToken.isAuthenticateUser, authenToken.isUserAdmin("admin"), productController.deleteSingleProduct)
 
 router.route('/review')
     .get(authenToken.isAuthenticateUser, productController.getProductReviews)

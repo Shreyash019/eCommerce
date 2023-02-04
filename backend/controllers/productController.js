@@ -62,18 +62,18 @@ exports.getAllProducts = CatchAsync(async (req, res, next)=>{
     const productCount = await productModel.countDocuments();
     
     const apiFeature = new ApiFeatures(productModel.find(), req.query).search().filter().pagination(resultPerPage)
-    const fetchAllProduct = await apiFeature.query;
+    const products = await apiFeature.query;
 
     // const fetchAllProduct = await productModel.find()
-    if(!fetchAllProduct){
+    if(!products){
         return next(new ErrorHandler(`Product doesn't exist`, 500))
     }
     res.status(200).json({
         status: "Success",
-        length: fetchAllProduct.length,
+        length: products.length,
         Number_of_Products: productCount,
         data: {
-            fetchAllProduct
+            products
         }
     })
 })
