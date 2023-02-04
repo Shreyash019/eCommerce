@@ -10,4 +10,10 @@ router.route('/product/:id')
     .put(authenToken.isAuthenticateUser, authenToken.isUserAdmin("admin"), productController.updateAProducts)
     .delete(authenToken.isAuthenticateUser, authenToken.isUserAdmin("admin"),productController.deleteSingleProduct)
 
+router.route('/review')
+    .get(authenToken.isAuthenticateUser, productController.getProductReviews)
+    .put(productController.createProductReview)
+    .delete(authenToken.isAuthenticateUser, productController.deleteProductReviews)
+
+
 module.exports = router;
