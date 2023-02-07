@@ -2,14 +2,12 @@ const UserModel = require('../model/userSchema');
 const ErrorHandler = require('../utils/errorHandler');
 const crypto = require('crypto');
 const CatchAsync = require('../middleware/catchAsync');
-const ApiFeatures = require('../utils/apiFeatures');
 const authToken = require('../utils/authToken');
 const mail = require('../middleware/sendEmail')
 
 
 // User registration
 exports.userRegistraion = CatchAsync( async(req, res, next)=>{
-
     const {name, email, password, profileImage} = req.body;
     if(!name || !email || !password || !profileImage){
         return res.send('Please Enter Details')
@@ -24,7 +22,6 @@ exports.userRegistraion = CatchAsync( async(req, res, next)=>{
         password,
         profileImage
     });
-
     authToken.sendToken(userRegis, 200, res)
 })
 
@@ -69,7 +66,6 @@ exports.forgotPassword = CatchAsync( async(req, res, next)=>{
     if(!user){
         return next(new ErrorHandler("User not found", 404));
     }
-
     // Get ResetPasswordToken
     const resetToken = await user.getResetPasswordToken();
 
@@ -179,20 +175,23 @@ exports.userPasswordUpdate = CatchAsync( async(req, res, next)=>{
 })
 
 
-// Get All users
 
+
+
+
+
+
+// Get All users
 exports.getAllUsersByAdmin = CatchAsync(async(req, res, next)=>{
     const user = await UserModel.find();
-
     res.status(200).json({
         success: true,
         user
     })
 })
 
-// Adomi get User detail
-
-exports.getUserDetailByAdmin = CatchAsync( async(req, res, next)=>{
+// Admin get a User detail
+exports.getSingleUserDetailByAdmin = CatchAsync( async(req, res, next)=>{
     const user = await UserModel.findById(req.params.id);
     if(!user){
         return next(new ErrorHandler(`User does not exist with ID: ${req.params.id}`))

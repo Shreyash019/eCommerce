@@ -11,8 +11,8 @@ router.route('/product/:id')
     .delete(authenToken.isAuthenticateUser, authenToken.isUserAdmin("admin"), productController.deleteSingleProduct)
 
 router.route('/review')
-    .get(authenToken.isAuthenticateUser, productController.getProductReviews)
-    .put(productController.createProductReview)
+    .get( productController.getProductReviews)
+    .put(authenToken.isAuthenticateUser, productController.createProductReview)
     .delete(authenToken.isAuthenticateUser, productController.deleteProductReviews)
 
 

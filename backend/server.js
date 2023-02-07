@@ -9,7 +9,7 @@ process.on('uncaughtException', (err)=>{
     process.exit(1);
 })
 
-const connectDatabase = require('./database')
+const connectDatabase = require('./database');
 dotenv.config({path: '../config.env'});
 connectDatabase
 

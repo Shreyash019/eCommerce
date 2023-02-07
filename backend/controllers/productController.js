@@ -6,7 +6,6 @@ const ApiFeatures = require('../utils/apiFeatures');
 
 // Create Product
 exports.createProduct = CatchAsync(async (req, res, next)=>{
-
     req.body.createdByUser= req.user.id
 
     const product = await productModel.create(req.body);
@@ -171,8 +170,7 @@ exports.deleteProductReviews = CatchAsync( async(req, res, next)=>{
         runValidators: true,
         useFindAndModify: false
 
-    }
-    )
+    })
 
     await product.save({validateBeforeSave: false})
 
